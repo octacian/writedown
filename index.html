@@ -1,0 +1,17 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>WriteDown</title>
+  <script>window.$ = window.jQuery = require('./js/jquery.min.js')</script>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <!-- output -->
+  <div id="output" class="pull-right"></div>
+  <!-- input -->
+  <textarea id="input" rows="7" onkeyup="convert" onblur="conver" placeholder="Markdown Here!"></textarea>
+</body>
+
+<!-- renderer -->
+<script>require('./renderer.js')</script>
+</html>

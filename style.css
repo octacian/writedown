@@ -1,0 +1,23 @@
+/* style.css */
+html {
+  font-family: sans-serif;
+}
+
+#input {
+  width: 50%;
+  height: 100%;
+  font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+  border-left: 1px dotted grey;
+  resize: none;
+}
+
+#output {
+  width: 49%;
+  height: 100%;
+  padding-left: 5px;
+  border-left: 1px dotted grey;
+}
+
+.pull-right {
+  float: right;
+}
