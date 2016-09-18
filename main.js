@@ -30,6 +30,35 @@ let template = [{
     click: saveFile
   }]
 }, {
+  label: 'Edit',
+  submenu: [{
+    label: 'Undo',
+    accelerator: 'CmdOrCtrl+Z',
+    role: 'undo'
+  }, {
+    label: 'Redo',
+    accelerator: 'Shift+CmdOrCtrl+Z',
+    role: 'redo'
+  }, {
+    type: 'separator'
+  }, {
+    label: 'Cut',
+    accelerator: 'CmdOrCtrl+X',
+    role: 'cut'
+  }, {
+    label: 'Copy',
+    accelerator: 'CmdOrCtrl+C',
+    role: 'copy'
+  }, {
+    label: 'Paste',
+    accelerator: 'CmdOrCtrl+V',
+    role: 'paste'
+  }, {
+    label: 'Select All',
+    accelerator: 'CmdOrCtrl+A',
+    role: 'selectall'
+  }]
+  }, {
   label: 'View',
   submenu: [{
     label: 'Reload',
@@ -110,6 +139,107 @@ let template = [{
   }]
 }]
 
+function addUpdateMenuItems (items, position) {
+  if (process.mas) return
+
+  const version = electron.app.getVersion()
+  let updateItems = [{
+    label: `Version ${version}`,
+    enabled: false
+  }, {
+    label: 'Checking for Update',
+    enabled: false,
+    key: 'checkingForUpdate'
+  }, {
+    label: 'Check for Update',
+    visible: false,
+    key: 'checkForUpdate',
+    click: function () {
+      require('electron').autoUpdater.checkForUpdates()
+    }
+  }, {
+    label: 'Restart and Install Update',
+    enabled: true,
+    visible: false,
+    key: 'restartToUpdate',
+    click: function () {
+      require('electron').autoUpdater.quitAndInstall()
+    }
+  }]
+
+  items.splice.apply(items, [position, 0].concat(updateItems))
+}
+
+function findReopenMenuItem () {
+  const menu = Menu.getApplicationMenu()
+  if (!menu) return
+
+  let reopenMenuItem
+  menu.items.forEach(function (item) {
+    if (item.submenu) {
+      item.submenu.items.forEach(function (item) {
+        if (item.key === 'reopenMenuItem') {
+          reopenMenuItem = item
+        }
+      })
+    }
+  })
+  return reopenMenuItem
+}
+
+if (process.platform === 'darwin') {
+  const name = electron.app.getName()
+  template.unshift({
+    label: name,
+    submenu: [{
+      label: `About ${name}`,
+      role: 'about'
+    }, {
+      type: 'separator'
+    }, {
+      label: 'Services',
+      role: 'services',
+      submenu: []
+    }, {
+      type: 'separator'
+    }, {
+      label: `Hide ${name}`,
+      accelerator: 'Command+H',
+      role: 'hide'
+    }, {
+      label: 'Hide Others',
+      accelerator: 'Command+Alt+H',
+      role: 'hideothers'
+    }, {
+      label: 'Show All',
+      role: 'unhide'
+    }, {
+      type: 'separator'
+    }, {
+      label: 'Quit',
+      accelerator: 'Command+Q',
+      click: function () {
+        app.quit()
+      }
+    }]
+  })
+
+  // Window menu.
+  template[3].submenu.push({
+    type: 'separator'
+  }, {
+    label: 'Bring All to Front',
+    role: 'front'
+  })
+
+  addUpdateMenuItems(template[0].submenu, 1)
+}
+
+if (process.platform === 'win32') {
+  const helpMenu = template[template.length - 1].submenu
+  addUpdateMenuItems(helpMenu, 0)
+}
+
 // create window
 function createWindow () {
   mainWindow = new BrowserWindow({width: 800, height: 600}) // window data
@@ -136,6 +266,9 @@ app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') {
     app.quit()
   }
+  // menu
+  let reopenMenuItem = findReopenMenuItem()
+  if (reopenMenuItem) reopenMenuItem.enabled = true
 })
 
 app.on('activate', function () {
@@ -144,6 +277,11 @@ app.on('activate', function () {
   if (mainWindow === null) {
     createWindow()
   }
+})
+
+app.on('browser-window-created', function () {
+  let reopenMenuItem = findReopenMenuItem()
+  if (reopenMenuItem) reopenMenuItem.enabled = false
 })
 
 // ------------ //
