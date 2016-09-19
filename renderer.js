@@ -5,41 +5,42 @@ const ipc = require('electron').ipcRenderer
 // onload, register function
 var showdown = require('./js/showdown.min.js')
 var converter = new showdown.Converter()
-var input = document.getElementById('input')
-var output = document.getElementById('output')
+var input = document.getElementsByClassName('input')
+var output = document.getElementsByClassName('output')
 
 // convert
 var convert = function() {
-  output.innerHTML = converter.makeHtml(input.value)
+  output[0].innerHTML = converter.makeHtml(input[0].value)
 }
 
 // add callbacks
-input.onkeyup = convert
-input.onblur = convert
+input[0].onkeyup = convert
+input[0].onblur = convert
 
 // run function
 convert()
 
 // listen for IPC
 ipc.on('set-input', function(event, value) {
-  input.value = value
+  input[0].value = value
   convert()
 })
 
 // listen for value request
 ipc.on('hello-editorValue', function(event) {
-  event.sender.send('reply-editorValue', input.value)
+  console.log(input[0].value)
+  event.sender.send('reply-editorValue', input[0].value)
 })
 
 // listen for working file request
 ipc.on('hello-workingFile', function(event) {
   console.log('workingFile reply')
-  event.sender.send('reply-workingFile', input.dataset.filePath, input.dataset.fileName)
+  event.sender.send('reply-workingFile', input[0].dataset.filePath, input[0].dataset.fileName)
 })
 
 // listen for set working file command
 ipc.on('set-workingFile', function(event, filepath, name) {
-  input.dataset.filePath = filepath
-  input.dataset.fileName = name
+  input[0].dataset.filePath = filepath
+  input[0].dataset.fileName = name
   document.title = name + " - WriteDown"
 })

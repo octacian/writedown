@@ -1,15 +1,19 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>WriteDown</title>
+  <title>Untitled - WriteDown</title>
   <script>window.$ = window.jQuery = require('./js/jquery.min.js')</script>
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-  <!-- output -->
-  <div id="output" class="pull-right"></div>
-  <!-- input -->
-  <textarea id="input" rows="7" onkeyup="convert" onblur="convert" data-file-path="" data-file-name="" placeholder="Markdown Here!"></textarea>
+  <div class="editor">
+    <!-- output -->
+    <div class="output pull-right"></div>
+    <!-- divider -->
+    <div class="divider pull-right"></div>
+    <!-- input -->
+    <textarea class="input" rows="7" onkeyup="convert" onblur="convert" data-file-path="" data-file-name="" placeholder="Markdown Here!"></textarea>
+  </div>
 </body>
 
 <!-- renderer -->
