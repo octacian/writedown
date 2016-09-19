@@ -345,10 +345,15 @@ function saveFile() {
 
   // check contents and time out if needed
   function checkContents() {
+    // if check count is above 10, timeout
+    if (checkCount > 10) { return console.log('Save File - Request for editor data timed out or editor is blank.') }
     // if contents blank, delay for reply
     if (!contents || !working) {
-      console.log('Save File: Waiting for editor data.')
-      setTimeout(function() { checkContents() }, 100)
+      // if check count is 0, display message
+      if (checkCount === 1) {
+        console.log('Save File - Waiting for editor data.')
+      }
+      setTimeout(function() { checkCount++; checkContents() }, 100)
     } else { createSave() }
   }
 
@@ -370,6 +375,7 @@ function saveFile() {
     contents = value
   })
 
+  var checkCount = 1
   // call checkContents
   checkContents()
 }

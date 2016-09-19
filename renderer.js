@@ -28,13 +28,11 @@ ipc.on('set-input', function(event, value) {
 
 // listen for value request
 ipc.on('hello-editorValue', function(event) {
-  console.log(input[0].value)
   event.sender.send('reply-editorValue', input[0].value)
 })
 
 // listen for working file request
 ipc.on('hello-workingFile', function(event) {
-  console.log('workingFile reply')
   event.sender.send('reply-workingFile', input[0].dataset.filePath, input[0].dataset.fileName)
 })
 
