@@ -61,6 +61,20 @@ let template = [{
   }, {
   label: 'View',
   submenu: [{
+    label: 'Toggle Preview',
+    accelerator: 'CmdOrCtrl+Shift+M',
+    click: function() {
+      mainWindow.webContents.send('set-preview', 'toggle')
+    }
+  }, {
+    label: 'Expand Prevew',
+    accelerator: 'CmdOrCtrl+Shift+E',
+    click: function() {
+      mainWindow.webContents.send('set-preview', 'expand')
+    }
+  }, {
+    type: 'separator'
+  }, {
     label: 'Reload',
     accelerator: 'CmdOrCtrl+R',
     click: function (item, focusedWindow) {

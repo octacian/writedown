@@ -6,13 +6,20 @@
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+  <!-- frame -->
+  <div class="frame">
+    <!-- preview toggle -->
+    <button id="preview-toggle" class="toggle toggle-custom" data-target-class='[["output", "hide-none"], ["input", "width-full"]]' data-target-id='[["preview-toggle", "button-active"], ["preview-expand", "hide-none"]]'>M</button>
+    <!-- expand preview toggle -->
+    <button id="preview-expand" class="toggle toggle-custom hide-none" data-target-class='[["input", "hide-none"], ["output", "width-full"]]' data-target-id='[["preview-expand", "button-active"]]'>X</button>
+  </div>
+
+  <!-- editor -->
   <div class="editor">
     <!-- output -->
-    <div class="output pull-right"></div>
-    <!-- divider -->
-    <div class="divider pull-right"></div>
+    <div class="output pull-right hide-none"></div>
     <!-- input -->
-    <textarea class="input" rows="7" onkeyup="convert" onblur="convert" data-file-path="" data-file-name="" placeholder="Markdown Here!"></textarea>
+    <textarea class="input width-full" rows="7" onkeyup="convert" onblur="convert" data-file-path="" data-file-name="" placeholder="Markdown Here!"></textarea>
   </div>
 </body>
 
