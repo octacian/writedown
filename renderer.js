@@ -1,26 +1,13 @@
 /* renderer.js */
+
+// ------------- //
+// COMMUNICATION //
+// ------------- //
+
 // module to communicate with main process
 const ipc = require('electron').ipcRenderer
 
-// onload, register function
-var showdown = require('./js/showdown.min.js')
-var converter = new showdown.Converter()
-var input = document.getElementsByClassName('input')
-var output = document.getElementsByClassName('output')
-
-// convert
-var convert = function() {
-  output[0].innerHTML = converter.makeHtml(input[0].value)
-}
-
-// add callbacks
-input[0].onkeyup = convert
-input[0].onblur = convert
-
-// run function
-convert()
-
-// listen for IPC
+// set input
 ipc.on('set-input', function(event, value) {
   input[0].value = value
   convert()
@@ -63,6 +50,31 @@ ipc.on('set-preview', function(event, action) {
     }
   }
 })
+
+// ------------------- //
+// MARKDOWN CONVERSION //
+// ------------------- //
+
+// refs
+var showdown = require('./js/showdown.min.js')
+var converter = new showdown.Converter()
+var inputs = document.getElementsByClassName('markdown')
+
+// convert function
+var convert = function(input, output) {
+  output.innerHTML = converter.makeHtml(input.value)
+  console.log('converting')
+}
+
+// for inputs, register callbacks
+for (var i=0; i<inputs.length; i++) {
+  var input = inputs[i] // ref
+  console.log(input)
+  var output = document.getElementsByClassName(input.dataset.outputClass)[0]
+  console.log(output)
+  input.onkeyup = function() { convert(input, output) }
+  input.onblur = function() { convert(input, output) }
+}
 
 // -------------- //
 // TOGGLE BUTTONS //
