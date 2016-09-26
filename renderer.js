@@ -137,3 +137,42 @@ for (var i0=0; i0<toggle_buttons.length; i0++) {
     createNormal(button)
   }
 }
+
+// ---- //
+// TABS //
+// ---- //
+function createControl(control, tabkey, siblings) {
+  return control.onclick = function() {
+    // remove hide-none from tab
+    siblings[tabkey].classList.remove('hide-none')
+    // for siblings, hide if not shown tab
+    for (var k=0; k<siblings.length; k++) {
+      var sibling = siblings[k]
+      // if not shown tab, hide
+      if (k !== tabkey) {
+        sibling.classList.add('hide-none')
+      }
+    }
+  }
+}
+
+var tab_containers = document.getElementsByClassName('tab-container') // get refs
+// loop through refs
+for (var i=0; i<tab_containers.length; i++) {
+  var children = tab_containers[i].children
+  // for children, check if tab
+  for (var j=0; j<children.length; j++) {
+    var child = children[j]
+    // if is tab, check if active and register onclick for control
+    if (child.classList.contains('tab')) {
+      // if active, remove hide none if exists
+      if (child.dataset.active === "true") {
+        if (child.classList.contains('hide-none')) { child.classList.remove('hide-none') }
+      } else { // else, hide if not already
+        if (!child.classList.contains('hide-none')) { child.classList.add('hide-none') }
+      }
+      // register onclick for control
+      createControl(document.getElementById(child.dataset.control), j, children)
+    }
+  }
+}
