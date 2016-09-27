@@ -1,0 +1,106 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>About WriteDown</title>
+  <script>window.$ = window.jQuery = require('../../js/jquery.min.js')</script>
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="../css/about.css">
+</head>
+<body>
+  <!-- frame -->
+  <div class="frame">
+    <!-- about -->
+    <div id="menu-about" class="menu-item">
+      <img src="../img/typewriter.png" title="About" />
+      <span>About</span>
+    </div>
+
+    <!-- license -->
+    <div id="menu-license" class="menu-item">
+      <img src="../img/license_icon.png" title="About" />
+      <span>License</span>
+    </div>
+  </div>
+
+  <!-- content and tab container -->
+  <div class="content tab-container">
+    <!-- about -->
+    <div id="about" class="tab" data-active="true" data-control="menu-about">
+      <img class="float-left" src="../img/typewriter.png" title="WriteDown" />
+      <div id="about-info" class="float-left">
+        <h3>WriteDown</h3>
+        <p>
+          Version: 0.1.0<br />License:
+          <a href="" class="link-external" data-href="https://opensource.org/licenses/MIT">MIT</a><br />
+          Developer: <a href="" class="link-external" data-href="https://git.endev.xyz/octacian/">Elijah Duffy</a>
+        </p>
+      </div>
+
+      <!-- icon credits -->
+      <div id="about-credits">
+        <h2>Icon Credits</h2>
+        <p>Icons from <a href="" class="link-external" data-href="www.flaticon.com">flaticon</a></p>
+        <ul>
+          <li>
+            WriteDown Icon (typewriter.png) - Author:
+            <a href="" class="link-external" data-href="http://www.flaticon.com/authors/madebyoliver">Madebyoliver</a>
+          </li>
+          <li>
+            Preview Icon (preview.png) - Author:
+            <a href="" class="link-external" data-href="http://www.flaticon.com/authors/freepik">Freepik</a>
+          </li>
+          <li>
+            Expand Preview Icon (expand.png) - Author:
+            <a href="" class="link-external" data-href="http://www.flaticon.com/authors/freepik">Freepik</a>
+          </li>
+          <li>
+            License Icon (license_icon.png) - Author:
+            <a href="" class="link-external" data-href="http://www.flaticon.com/authors/freepik">Freepik</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- writedown license -->
+    <div id="license" class="tab" data-control="menu-license">
+      <p>
+        WriteDown is licensed under the
+        <a href="" class="link-external" data-href="https://opensource.org/licenses/MIT">MIT License</a>.
+        Please make yourself familiar with the terms of the license before modifying or redistributing ths
+        program (WriteDown).
+      </p>
+
+      <div id="mit">
+        <p>Copyright (c) <span id="year"></span> enDEV</p>
+
+        <p>
+          Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+          associated documentation files (the "Software"), to deal in the Software without restriction,
+          including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+          and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+          subject to the following conditions:
+        </p>
+
+        <p>
+          The above copyright notice and this permission notice shall be included in all copies or substantial
+          portions of the Software.
+        </p>
+
+        <p>
+          THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+          LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+          IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+          WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+          SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+        </p>
+
+        <!-- year -->
+        <script>var d = new Date(); document.getElementById('year').innerHTML = d.getFullYear()</script>
+      </div>
+    </div>
+  </div>
+</body>
+
+<!-- renderer -->
+<script>require('../../renderer.js')</script>
+</html>

@@ -153,6 +153,26 @@ let template = [{
   }]
 }]
 
+// if not mac, extra menu
+if (process.platform !== 'darwin') {
+  const name = electron.app.getName()
+  // Window menu.
+  template[4].submenu.push({
+    type: 'separator'
+  }, {
+    label: 'About '+name,
+    click: function() {
+      createAboutWindow()
+    }
+  }, {
+    label: 'Credit',
+    role: 'credits'
+  }, {
+    label: 'Licenses',
+    role: 'license'
+  })
+}
+
 function addUpdateMenuItems (items, position) {
   if (process.mas) return
 
@@ -256,11 +276,21 @@ if (process.platform === 'win32') {
 
 // create window
 function createWindow () {
-  mainWindow = new BrowserWindow({width: 800, height: 600}) // window data
+  mainWindow = new BrowserWindow({width: 800, height: 600, icon: `file://${__dirname}/resources/img/typewriter.html`}) // window data
   mainWindow.loadURL(`file://${__dirname}/index.html`) // and load the index.html of the app.
   // on window close, deref window object
   mainWindow.on('closed', function () {
     mainWindow = null
+  })
+}
+
+// create about window
+function createAboutWindow() {
+  aboutWindow = new BrowserWindow({width: 700, height: 500}) // window data
+  aboutWindow.loadURL(`file://${__dirname}/resources/windows/about.html`) // and load about.html of the app
+  // on window close, deref window object
+  aboutWindow.on('closed', function() {
+    aboutWindow = null
   })
 }
 

@@ -176,3 +176,23 @@ for (var i=0; i<tab_containers.length; i++) {
     }
   }
 }
+
+// -------------- //
+// EXTERNAL LINKS //
+// -------------- //
+const shell = require('electron').shell
+
+function createLinkClick(button, href) {
+  button.onclick = function() {
+    shell.openExternal(href)
+  }
+}
+
+var external_links = document.getElementsByClassName('link-external') // get refs
+// for each ref, add onclick
+for (var i=0; i<external_links.length; i++) {
+  var button = external_links[i]
+  // if not href, return console
+  if (!button.dataset.href) { return console.log('Set data-href on elements with link-external to set link.') }
+  createLinkClick(button, button.dataset.href)
+}

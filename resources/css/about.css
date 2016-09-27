@@ -1,0 +1,53 @@
+body {
+  background-color: #eee;
+}
+
+/* menu frame */
+.frame {
+  height: 12% !important;
+}
+
+/* menu */
+.menu-item {
+  float: left;
+  width: 15%;
+  text-align: center;
+  color: #696969;
+  font-weight: bold;
+  cursor: default;
+}
+
+.menu-item img {
+  display: block;
+  margin: 5px auto;
+  height: 50%;
+}
+
+/* content */
+.content {
+  width: 95%;
+  margin: 8px auto;
+}
+
+/* ABOUT */
+#about #about-info {
+  margin-left: 16px;
+}
+
+#about-credits {
+  clear: both;
+}
+
+#about-credits h2 {
+  font-weight: normal;
+}
+
+/* LICENSE */
+#license {
+  color: #494949;
+}
+
+/* license quote */
+#mit {
+  background-color: #fff !important;
+}

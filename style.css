@@ -54,7 +54,6 @@ button {
   cursor: pointer;
   height: 75%;
   width: 3%;
-  float: right;
   border-radius: 3px;
   margin: 0.4%;
   outline: none;
@@ -65,12 +64,24 @@ button:hover {
   outline: none;
 }
 
-.button-active {
-  background-color: #ccc;
+/* image button style elements */
+img[role=button] {
+  background-color: #eee;
+  cursor: pointer;
+  height: 75%;
+  margin: 0.4%;
+  outline: none;
+  margin-left: 0.7rem;
 }
 
-.button-active:hover {
-  background-color: #eee;
+/* float right */
+.float-right {
+  float: right;
+}
+
+/* float left */
+.float-left {
+  float: left;
 }
 
 /* frame style */
