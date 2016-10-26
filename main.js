@@ -276,7 +276,7 @@ if (process.platform === 'win32') {
 
 // create window
 function createWindow () {
-  mainWindow = new BrowserWindow({width: 800, height: 600, icon: `file://${__dirname}/resources/img/typewriter.html`}) // window data
+  mainWindow = new BrowserWindow({width: 800, height: 600, icon: path.join(__dirname, 'resources/img/typewriter.png') }) // window data
   mainWindow.loadURL(`file://${__dirname}/index.html`) // and load the index.html of the app.
   // on window close, deref window object
   mainWindow.on('closed', function () {
