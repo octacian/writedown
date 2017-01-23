@@ -2,6 +2,8 @@
 
 // Main electron module
 const electron = require('electron')
+// Module to access things from main process
+const remote = electron.remote
 // Module to create native browser window.
 const BrowserWindow = electron.remote.BrowserWindow
 // Module to create alert-like dialogs
@@ -58,7 +60,10 @@ input.onblur = function() { convert(input, output) }
 
 module.exports = {
   createAboutWindow: function() {
-    aboutWindow = new BrowserWindow({width: 700, height: 500}) // window data
+    // Create about window
+    aboutWindow = new BrowserWindow({
+      parent: remote.getCurrentWindow(), modal: true, width: 700, height: 500
+    })
     aboutWindow.loadURL(`file://${__dirname}/../static/about.html`) // and load about.html of the app
     // on window close, deref window object
     aboutWindow.on('closed', function() {
