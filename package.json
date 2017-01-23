@@ -2,7 +2,7 @@
   "name": "WriteDown",
   "version": "0.1.0",
   "description": "A simple Markdown Editor based off the Electron platform.",
-  "main": "main.js",
+  "main": "app/main.js",
   "scripts": {
     "start": "electron ."
   },

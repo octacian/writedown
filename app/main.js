@@ -276,8 +276,8 @@ if (process.platform === 'win32') {
 
 // create window
 function createWindow () {
-  mainWindow = new BrowserWindow({width: 800, height: 600, icon: path.join(__dirname, 'resources/img/typewriter.png') }) // window data
-  mainWindow.loadURL(`file://${__dirname}/index.html`) // and load the index.html of the app.
+  mainWindow = new BrowserWindow({width: 800, height: 600, icon: path.join(__dirname, 'img/typewriter.png') }) // window data
+  mainWindow.loadURL(`file://${__dirname}/static/index.html`) // and load the index.html of the app.
   // on window close, deref window object
   mainWindow.on('closed', function () {
     mainWindow = null
@@ -287,7 +287,7 @@ function createWindow () {
 // create about window
 function createAboutWindow() {
   aboutWindow = new BrowserWindow({width: 700, height: 500}) // window data
-  aboutWindow.loadURL(`file://${__dirname}/resources/windows/about.html`) // and load about.html of the app
+  aboutWindow.loadURL(`file://${__dirname}/static/about.html`) // and load about.html of the app
   // on window close, deref window object
   aboutWindow.on('closed', function() {
     aboutWindow = null

@@ -1,4 +1,4 @@
-/* renderer.js */
+/* index.js */
 
 // ------------- //
 // COMMUNICATION //
@@ -56,7 +56,7 @@ ipc.on('set-preview', function(event, action) {
 // ------------------- //
 
 // refs
-var showdown = require('./js/showdown.min.js')
+var showdown = require('../../lib/js/showdown.min.js')
 var converter = new showdown.Converter()
 var inputs = document.getElementsByClassName('markdown')
 
