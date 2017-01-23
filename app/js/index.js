@@ -4,7 +4,7 @@
 // COMMUNICATION //
 // ------------- //
 
-// module to communicate with main process
+// Module to communicate with main process
 const ipc = require('electron').ipcRenderer
 
 // set input
@@ -50,31 +50,6 @@ ipc.on('set-preview', function(event, action) {
     }
   }
 })
-
-// ------------------- //
-// MARKDOWN CONVERSION //
-// ------------------- //
-
-// refs
-var showdown = require('../../lib/js/showdown.min.js')
-var converter = new showdown.Converter()
-var inputs = document.getElementsByClassName('markdown')
-
-// convert function
-var convert = function(input, output) {
-  output.innerHTML = converter.makeHtml(input.value)
-  console.log('converting')
-}
-
-// for inputs, register callbacks
-for (var i=0; i<inputs.length; i++) {
-  var input = inputs[i] // ref
-  console.log(input)
-  var output = document.getElementsByClassName(input.dataset.outputClass)[0]
-  console.log(output)
-  input.onkeyup = function() { convert(input, output) }
-  input.onblur = function() { convert(input, output) }
-}
 
 // -------------- //
 // TOGGLE BUTTONS //

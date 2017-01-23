@@ -9,13 +9,13 @@ body {
 }
 
 /* editor style */
-body>.editor {
+body>#editor {
   height: 95%;
   overflow: hidden;
 }
 
 /* input style */
-.editor>.input {
+#editor>#input {
   width: 50%;
   height: 100%;
   font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
@@ -27,7 +27,7 @@ body>.editor {
 }
 
 /* output style */
-.editor>.output {
+#editor>#output {
   overflow-y: scroll;
   width: 50%;
   height: 100%;
@@ -36,7 +36,7 @@ body>.editor {
 }
 
 /* pull right class (used by editor children) */
-.editor>.pull-right {
+#output>.pull-right {
   float: right;
 }
 

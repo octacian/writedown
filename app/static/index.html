@@ -9,20 +9,23 @@
   <!-- frame -->
   <div class="frame">
     <!-- preview toggle -->
-    <img src="../img/preview.png" title="Toggle Preview" id="preview-toggle" class="toggle toggle-custom float-right" role="button" data-target-class='[["output", "hide-none"], ["input", "width-full"]]' data-target-id='[["preview-toggle", "button-active"], ["preview-expand", "hide-none"]]' />
+    <img src="../img/preview.png" title="Toggle Preview" id="preview-toggle" class="toggle toggle-custom float-right" role="button" data-target-id='[["preview-toggle", "button-active"], ["output", "hide-none"], ["input", "width-full"], ["preview-expand", "hide-none"]]' />
     <!-- expand preview toggle -->
-    <img src="../img/expand.png" title="Expand Preview" id="preview-expand" class="toggle toggle-custom hide-none float-right" role="button" data-target-class='[["input", "hide-none"], ["output", "width-full"]]' data-target-id='[["preview-expand", "button-active"]]' />
+    <img src="../img/expand.png" title="Expand Preview" id="preview-expand" class="toggle toggle-custom hide-none float-right" role="button" data-target-id='[["preview-expand", "button-active"], ["input", "hide-none"], ["output", "width-full"]]' />
   </div>
 
   <!-- editor -->
-  <div class="editor">
+  <div id="editor">
     <!-- output -->
-    <div class="output pull-right hide-none"></div>
+    <div id="output" class="float-right hide-none"></div>
     <!-- input -->
-    <textarea class="markdown input width-full" rows="7" data-output-class="output" data-file-path="" data-file-name="" placeholder="Markdown Here!"></textarea>
+    <textarea id="input" class="width-full" rows="7" data-file-path="" data-file-name="" placeholder="Markdown Here!"></textarea>
   </div>
 </body>
 
-<!-- renderer -->
-<script>require('../js/index.js')</script>
+<!-- JavaScript -->
+<script>
+require('../js/menu.js')
+require('../js/index.js')
+</script>
 </html>
