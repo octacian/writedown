@@ -13,10 +13,8 @@ const fs = require('fs')
 // Module to deal with file paths
 const path = require('path')
 // Module to convert Markdown to HTML
-var showdown = require('../../lib/js/showdown.min.js')
+var marked = require('marked')
 
-// New Converter
-var converter = new showdown.Converter()
 // Input element
 var input = document.getElementById('input')
 // Output element
@@ -28,7 +26,7 @@ var output = document.getElementById('output')
 
 // convert function
 var convert = function() {
-  output.innerHTML = converter.makeHtml(input.value)
+  output.innerHTML = marked(input.value)
 }
 
 // Write to file

@@ -23,5 +23,8 @@
   "homepage": "https://git.endev.xyz/octacian/writedown/",
   "devDependencies": {
     "electron": "^1.4.4"
+  },
+  "dependencies": {
+    "marked": "^0.3.6"
   }
 }
