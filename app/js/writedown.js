@@ -12,6 +12,8 @@ const dialog = electron.remote.dialog
 const fs = require('fs')
 // Module to deal with file paths
 const path = require('path')
+// Module to communicate with main process
+const ipc = electron.ipcRenderer
 // Module to convert Markdown to HTML
 var marked = require('marked')
 
@@ -24,12 +26,27 @@ var output = document.getElementById('output')
 // FUNCTIONS //
 // --------- //
 
-// convert function
-var convert = function() {
-  output.innerHTML = marked(input.value)
+// [function] Close window
+function closeWindow(name) {
+  ipc.send('window-close', name)
 }
 
-// Write to file
+// [function] Open window
+function openWindow(name) {
+  ipc.send('window-open', name)
+}
+
+// [function] Load HTML
+function loadHTML(name, path) {
+  ipc.send('window-load', name, path)
+}
+
+// [function] Convert markdown
+var convert = function() {
+  output.innerHTML = marked(input.innerHTML)
+}
+
+// [function] Write to file
 function writeFile(path, data) {
   fs.writeFile(path, data, function(err) {
     if(err) {

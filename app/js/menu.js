@@ -154,7 +154,7 @@ if (process.platform !== 'darwin') {
   }, {
     label: 'About ' + name,
     click: function() {
-      WriteDown.createAboutWindow()
+      WriteDown.openWindow('about')
     }
   }, {
     label: 'Credit',
