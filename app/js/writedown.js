@@ -55,11 +55,39 @@ function writeFile(path, data) {
   })
 }
 
-// Set working file
+// [function] Set working file
 function setWorkingFile(path, name) {
   input.dataset.filePath = path
   input.dataset.fileName = name
   document.title = name + " - WriteDown"
+}
+
+// [function] Save file
+function saveFile(close_window) {
+  // if path is blank, new file
+  if ( input.dataset.filePath === '') {
+    // Show dialog
+    dialog.showSaveDialog({
+      title: 'Save Markdown Document',
+      filters: [
+        { name: 'Markdown', extensions: ['md', 'markdown']}
+      ]
+    }, function(filename) {
+      if (!filename) return false
+      writeFile(filename, input.innerHTML)
+      setWorkingFile(filename, path.basename(filename))
+      console.log('Created and saved file. (' + input.dataset.filePath + ')')
+      if ( close_window == true ) {
+        closeWindow("main")
+      }
+    })
+  } else { // else, save in working file
+    writeFile(input.dataset.filePath, input.innerHTML)
+    console.log('Saved file. (' + input.dataset.filePath + ')')
+    if ( close_window == true ) {
+      closeWindow("main")
+    }
+  }
 }
 
 // --------- //
@@ -69,23 +97,48 @@ function setWorkingFile(path, name) {
 input.onkeyup = function() { convert(input, output) }
 input.onblur = function() { convert(input, output) }
 
+window.onbeforeunload = function() {
+  function showMsg() {
+    dialog.showMessageBox(remote.getCurrentWindow(), {
+      type: "warning",
+      buttons: ['Cancel', 'Save', 'Don\'t Save'],
+      defaultId: 0,
+      title: "Close without saving?",
+      message: "Are you sure you want to close WriteDown without saving your work?",
+      cancelId: 0
+    }, function(index) {
+      if ( index == 1 ) {
+        saveFile(true)
+      } else if ( index == 2 ) {
+        closeWindow("main")
+      }
+    })
+  }
+
+  if ( input.dataset.filePath != "" ) {
+    fs.readFile(input.dataset.filePath, (e, data) => {
+      if ( ! e && input.innerHTML != data.toString() ) {
+        showMsg()
+      }
+    })
+  } else if ( input.dataset.filePath == "" && input.innerHTML != "" ) {
+    showMsg()
+  } else {
+    closeWindow("main")
+  }
+
+  return false
+}
+
 // ----------------- //
 // EXPOSED FUNCTIONS //
 // ----------------- //
 
 module.exports = {
-  createAboutWindow: function() {
-    // Create about window
-    aboutWindow = new BrowserWindow({
-      parent: remote.getCurrentWindow(), modal: true, width: 700, height: 500
-    })
-    aboutWindow.loadURL(`file://${__dirname}/../static/about.html`) // and load about.html of the app
-    // on window close, deref window object
-    aboutWindow.on('closed', function() {
-      aboutWindow = null
-    })
-  },
   convert: convert(),
+  closeWindow: closeWindow,
+  openWindow: openWindow,
+  loadHTML: loadHTML,
   openFile: function() {
     dialog.showOpenDialog({
       filters: [{name: 'Markdown', extensions: ['md', 'markdown']}],
@@ -96,32 +149,13 @@ module.exports = {
       var filename = path.basename(filepath);
       var filedata = fs.readFileSync(filepath, 'utf8');
       // Set values
-      input.value = filedata;
+      input.innerHTML = filedata;
       setWorkingFile(filepath, filename)
       convert()
       console.log("Opened " + filepath)
      })
   },
-  saveFile: function() {
-    // if path is blank, new file
-    if ( input.dataset.filePath === '') {
-      // Show dialog
-      dialog.showSaveDialog({
-        title: 'Save Markdown Document',
-        filters: [
-          { name: 'Markdown', extensions: ['md', 'markdown']}
-        ]
-      }, function(filename) {
-        if (!filename) return false
-        writeFile(filename, input.value)
-        setWorkingFile(filename, path.basename(filename))
-        console.log('Created and saved file. (' + input.dataset.filePath + ')')
-      })
-    } else { // else, save in working file
-      writeFile(input.dataset.filePath, input.value)
-      console.log('Saved file. (' + input.dataset.filePath + ')')
-    }
-  },
+  saveFile: saveFile,
   changePreviewState: function(action) {
     var toggle = document.getElementById('preview-toggle')
     var expand = document.getElementById('preview-expand')
