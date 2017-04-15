@@ -56,10 +56,15 @@ function writeFile(path, data) {
 }
 
 // [function] Set working file
-function setWorkingFile(path, name) {
+function setWorkingFile(path, name, modified) {
   input.dataset.filePath = path
   input.dataset.fileName = name
-  document.title = name + " - WriteDown"
+
+  if ( modified ) {
+    modified = " [modified]"
+  } else { modified = "" }
+
+  document.title = name + " - WriteDown" + modified
 }
 
 // [function] Save file
@@ -90,11 +95,33 @@ function saveFile(close_window) {
   }
 }
 
+// [function] Check for changes
+function checkChanges(input) {
+  var fpath = input.dataset.filePath
+  var fname = path.basename(fpath)
+
+  if ( fname == "" ) {
+    fname = "Untitled"
+  }
+
+  if ( fpath != "" ) {
+    fs.readFile(fpath, (e, data) => {
+      if ( ! e && input.innerHTML != data.toString() ) {
+        setWorkingFile(fpath, path.basename(fpath), true)
+      }
+    })
+  } else if ( fpath == "" && input.innerHTML != "" ) {
+    setWorkingFile(fpath, fname, true)
+  } else {
+    setWorkingFile(fpath, fname, false)
+  }
+}
+
 // --------- //
 // CALLBACKS //
 // --------- //
 
-input.onkeyup = function() { convert(input, output) }
+input.onkeyup = function() { convert(input, output); checkChanges(input); }
 input.onblur = function() { convert(input, output) }
 
 window.onbeforeunload = function() {
